@@ -17,6 +17,40 @@ public class BoardRepositoryTest {
     private BoardRepository boardRepository;
 
     @Test
+    public void delete_test() {
+        // given
+        int id = 4;
+
+        // when
+        boardRepository.delete(id);
+
+        // then 상태검사
+        List<Board> boardList = boardRepository.selectAll();
+        Assertions.assertThat(boardList.size()).isEqualTo(7);
+        System.out.println(boardList.size());
+    }
+
+    @Test
+    public void update_test() {
+        // given
+        String title = "제목이다!!";
+        String content = "내용이다!!";
+        int id = 1;
+
+        // when
+        boardRepository.update(title, content, id);
+
+        // then 상태검사
+        Board board = boardRepository.selectOne(id);
+        // 눈으로 상태검사
+        System.out.println(board);
+        //jUnit이 상태검사
+        Assertions.assertThat(board.getTitle()).isEqualTo("제목이다!!");
+        Assertions.assertThat(board.getContent()).isEqualTo("내용이다!!");
+
+    }
+
+    @Test
     public void selectAll_test(){
         // given
 
